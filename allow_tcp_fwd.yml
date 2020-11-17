@@ -1,0 +1,32 @@
+---
+- name: Verify if AllowTCPForwarding is set to yes and if so, don't change
+  hosts: ubuntu-rke
+  remote_user: ubuntu
+  tasks:
+    # Tasks
+    - name: Try to replace the line
+      replace:
+        dest    : /etc/ssh/sshd_config
+        replace : '#AllowTcpForwarding yes'
+        regexp  : '^#AllowTcpForwarding'
+        backup  : yes
+      register  : checkIfLineIsHere
+
+    # If the line not is here, I add it
+    - name: Add line
+      lineinfile:
+        state   : present
+        dest    : /etc/ssh/sshd_config
+        line    : '#AllowTcpForwarding yes'
+        regexp  : ''
+        insertafter: EOF
+      when: checkIfLineIsHere.changed == false
+
+    # If the line is here, I still want this line in the file, Then restore it
+    - name: Restore the searched line.
+      lineinfile:
+        state   : present
+        dest    : /etc/ssh/sshd_config
+        line    : '#AllowTcpForwarding yes'
+        regexp  : '^#AllowTcpForwarding'
+      when: checkIfLineIsHere.changed

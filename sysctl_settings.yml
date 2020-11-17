@@ -1,0 +1,16 @@
+---
+- name: Disable swap and load kernel modules
+  hosts: ubuntu-rke
+  remote_user: ubuntu
+  tasks:
+    - name: Modify sysctl entries
+      sysctl:
+        name: '{{ item.key }}'
+        value: '{{ item.value }}'
+        sysctl_set: yes
+        state: present
+        reload: yes
+      with_items:
+        #- {key: net.bridge.bridge-nf-call-ip6tables, value: 1}
+        - {key: net.bridge.bridge-nf-call-iptables,  value: 1}
+        #- {key: net.ipv4.ip_forward,  value: 1}     

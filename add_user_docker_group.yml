@@ -1,0 +1,10 @@
+---
+- name: Add rke user to docker group
+  hosts: ubuntu-rke
+  remote_user: ubuntu
+  tasks:
+  - name: adding existing user rke to docker group
+    user:
+      name: rke
+      groups: docker
+      append: yes

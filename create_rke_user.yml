@@ -1,0 +1,28 @@
+---
+- name: Create rke user with passwordless sudo
+  # following https://computingforgeeks.com/install-kubernetes-production-cluster-using-rancher-rke/
+  hosts: ubuntu-rke
+  remote_user: ubuntu
+  tasks:
+    - name: Add RKE admin user
+      user:
+        name: rke
+        shell: /bin/bash
+     
+    - name: Create sudo file
+      file:
+        path: /etc/sudoers.d/rke
+        state: touch
+    
+    - name: Give rke user passwordless sudo
+      lineinfile:
+        path: /etc/sudoers.d/rke
+        state: present
+        line: 'rke ALL=(ALL:ALL) NOPASSWD: ALL'
+     
+    - name: Set authorized key taken from file, copying your ssh public key to the user’s ~/.ssh/authorized_keys file
+      authorized_key:
+        user: rke
+        state: present
+        #key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+        key: "{{ lookup('file', '/home/rke/.ssh/id_rsa.pub') }}"
