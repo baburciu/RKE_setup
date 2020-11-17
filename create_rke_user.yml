@@ -13,16 +13,41 @@
       file:
         path: /etc/sudoers.d/rke
         state: touch
+
+    - name: Generate SSK keys at the localhost (Ansible server) for current user (boburciu), so that /home/boburciu/.ssh/id_rsa.pub is created for later share with target machine
+      user: 
+        name: boburciu
+        generate_ssh_key: yes
+        ssh_key_type: rsa
+        ssh_key_bits: 4096
+        ssh_key_file: .ssh/id_rsa
+        force: no      
+      delegate_to: 127.0.0.1
+
+    - name: Set authorized key taken from file, copying your ssh public key /home/boburciu/.ssh/id_rsa.pub to the rke user’s ~/.ssh/authorized_keys file
+      authorized_key:
+        user: rke
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
     
     - name: Give rke user passwordless sudo
       lineinfile:
         path: /etc/sudoers.d/rke
         state: present
         line: 'rke ALL=(ALL:ALL) NOPASSWD: ALL'
-     
-    - name: Set authorized key taken from file, copying your ssh public key to the user’s ~/.ssh/authorized_keys file
-      authorized_key:
-        user: rke
+
+    - name: Disable Password Authentication only for user rke to force SSH keys usage, then restart sshd
+      blockinfile:
+        path: /etc/ssh/sshd_config
+        block: |           
+          Match  User  rke
+                  PasswordAuthentication  no
         state: present
-        #key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
-        key: "{{ lookup('file', '/home/rke/.ssh/id_rsa.pub') }}"
+      notify:
+        - restart ssh      
+
+  handlers:
+    - name: restart ssh
+      service:
+        name: sshd
+        state: restarted         
