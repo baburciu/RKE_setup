@@ -1,0 +1,15 @@
+---
+- name: Download and enable docker, 2nd
+  hosts: ubuntu-rke
+  tasks:
+    - name: Dowload upstream Docker from Rancher  
+      get_url:
+        url: https://releases.rancher.com/install-docker/19.03.sh
+        dest: /home/ubuntu/rancher_docker_install.sh
+        mode: '0440'  
+
+    - name: Install upstream Docker from Rancher
+      command: sudo bash /home/ubuntu/rancher_docker_install.sh
+
+    - name: Start and enable docker service
+      command: sudo systemctl enable --now docker

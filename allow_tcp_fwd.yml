@@ -1,5 +1,5 @@
 ---
-- name: Verify if AllowTCPForwarding is set to yes and if so, don't change
+- name: Verify if AllowTCPForwarding is set to yes and if so, don't change, 7th
   hosts: ubuntu-rke
   remote_user: ubuntu
   tasks:

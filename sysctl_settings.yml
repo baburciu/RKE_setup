@@ -1,5 +1,10 @@
 ---
-- name: Disable swap and load kernel modules
+- name: Disable swap and load kernel modules, 6th
+    # To check prior to running playbook:
+    #  
+    # ubuntu@ubuntu180m2:~$ cat /etc/sysctl.conf | grep net.bridge.bridge-nf-call-iptables
+    # net.bridge.bridge-nf-call-iptables=1
+    # ubuntu@ubuntu180m2:~$
   hosts: ubuntu-rke
   remote_user: ubuntu
   tasks:

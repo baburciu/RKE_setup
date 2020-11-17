@@ -1,5 +1,5 @@
 ---
-- name: Create rke user with passwordless sudo
+- name: Create rke user with passwordless sudo, 1st
   # following https://computingforgeeks.com/install-kubernetes-production-cluster-using-rancher-rke/
   hosts: ubuntu-rke
   remote_user: ubuntu
@@ -14,7 +14,7 @@
         path: /etc/sudoers.d/rke
         state: touch
 
-    - name: Generate SSK keys at the localhost (Ansible server) for current user (boburciu), so that /home/boburciu/.ssh/id_rsa.pub is created for later share with target machine
+    - name: Generate SSH keys at the localhost (Ansible server) for current user (boburciu), so that /home/boburciu/.ssh/id_rsa.pub is created for later share with target machine
       user: 
         name: boburciu
         generate_ssh_key: yes

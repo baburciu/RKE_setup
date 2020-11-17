@@ -1,7 +1,7 @@
 ---
-- name: Disable swap and load kernel modules
+- name: Disable swap, 4th
   hosts: ubuntu-rke
-  remote_user: ubuntu
+  #remote_user: ubuntu
   tasks:
     - name: Disable SWAP since kubernetes can't work with swap enabled (1/2)
       shell: |
