@@ -1,9 +1,8 @@
 ---
 - name: Verify if AllowTCPForwarding is set to yes and if so, don't change, 7th
   hosts: ubuntu-rke
-  remote_user: ubuntu
+  #remote_user: ubuntu
   tasks:
-    # Tasks
     - name: Try to replace the line
       replace:
         dest    : /etc/ssh/sshd_config

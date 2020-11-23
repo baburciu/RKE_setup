@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../Work_documenting"
+		},
+		{
+			"path": "../K8s_cluster_RKE"
 		}
 	]
 }

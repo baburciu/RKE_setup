@@ -10,7 +10,7 @@
     #    fi;
     #  done
   hosts: ubuntu-rke
-  remote_user: ubuntu
+  #remote_user: ubuntu
   vars:
     kernel_modules:
       - br_netfilter

@@ -3,7 +3,7 @@
   hosts: ubuntu-rke
   tasks:
     - include_vars: external_vars.yml 
-    
+
 # ======= How to run: 
 # [boburciu@r220 Rancher_K8s_prereq]$ cd /home/boburciu/Rancher_K8s_prereq
 # [boburciu@r220 Rancher_K8s_prereq]$ ansible-playbook Rancher_prereq_setup.yml -v --become --ask-become-pass 
@@ -12,13 +12,20 @@
 - name: 1st, create the passwordless user ubuntu to target host Ubuntu KVM
   import_playbook: create_passwordless_user.yml
 
+- name: 2nd, download and enable docker
+  import_playbook: setup_docker.yml
 
+- name: 3rd, add the new user to docker group
+  import_playbook: add_user_docker_group.yml
 
-# - name: 2nd, download and enable docker
-#   import_playbook: setup_docker.yml
+- name: 4th, disable swap memory 
+  import_playbook: disable_swap.yml
 
-# - name: 1st, Create the passwordless user ubuntu
-#   import_playbook: create_passwordless_user.yml
+- name: 5th, load RKE kernel modules
+  import_playbook: add_kernel_modules.yml
 
-# - name: 1st, Create the passwordless user ubuntu
-#   import_playbook: create_passwordless_user.yml
+- name: 6th, change sysctl bridging settings
+  import_playbook: sysctl_settings.yml
+
+- name: 7th, enable AllowTCPForwarding
+  import_playbook: allow_tcp_fwd.yml

@@ -5,6 +5,6 @@
   tasks:
   - name: adding existing user rke to docker group
     user:
-      name: rke
+      name: "{{ rke_user}}"
       groups: docker
       append: yes
