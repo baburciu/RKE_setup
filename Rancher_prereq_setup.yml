@@ -1,0 +1,24 @@
+---
+- name: satisfy Rancher prereq for K8s cluster install
+  hosts: ubuntu-rke
+  tasks:
+    - include_vars: external_vars.yml 
+    
+# ======= How to run: 
+# [boburciu@r220 Rancher_K8s_prereq]$ cd /home/boburciu/Rancher_K8s_prereq
+# [boburciu@r220 Rancher_K8s_prereq]$ ansible-playbook Rancher_prereq_setup.yml -v --become --ask-become-pass 
+
+# following https://computingforgeeks.com/install-kubernetes-production-cluster-using-rancher-rke/
+- name: 1st, create the passwordless user ubuntu to target host Ubuntu KVM
+  import_playbook: create_passwordless_user.yml
+
+
+
+# - name: 2nd, download and enable docker
+#   import_playbook: setup_docker.yml
+
+# - name: 1st, Create the passwordless user ubuntu
+#   import_playbook: create_passwordless_user.yml
+
+# - name: 1st, Create the passwordless user ubuntu
+#   import_playbook: create_passwordless_user.yml

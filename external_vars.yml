@@ -1,0 +1,3 @@
+---
+# external_vars.yml to be used in playbooks called in order by import_playbook
+rke_user: boburciu

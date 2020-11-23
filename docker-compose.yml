@@ -1,0 +1,11 @@
+bind_DNS_server_container:
+  image: sameersbn/bind:latest
+  dns: 127.0.0.1
+  # environment:
+  #   - ROOT_PASSWORD=SecretPassword
+  ports:
+    - "192.168.0.10:53:53/udp"
+    - "192.168.0.10:53:53/tcp"
+    - "10000:10000/tcp"
+  volumes:
+    - /srv/docker/bind:/BM_VMs/data
