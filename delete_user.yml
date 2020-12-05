@@ -1,0 +1,12 @@
+---
+- name: Delete a user
+  hosts: ubuntu-rke
+  tasks:
+  - user:
+      name: boburciu
+      state: absent
+      remove: yes
+
+# ======= How to run w non-root Ansible user: 
+# [boburciu@r220 Rancher_K8s_prereq]$ cd /home/boburciu/Rancher_K8s_prereq
+# [boburciu@r220 Rancher_K8s_prereq]$ ansible-playbook delete_user.yml -v

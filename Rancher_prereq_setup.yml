@@ -1,10 +1,11 @@
 ---
 - name: satisfy Rancher prereq for K8s cluster install
+  # per https://computingforgeeks.com/install-kubernetes-production-cluster-using-rancher-rke/
   hosts: ubuntu-rke
   tasks:
-    - include_vars: external_vars.yml 
+    - include_vars: external_vars.yml    # where "rke_user: ubuntu"
 
-# ======= How to run: 
+# ======= How to run w non-root Ansible user: 
 # [boburciu@r220 Rancher_K8s_prereq]$ cd /home/boburciu/Rancher_K8s_prereq
 # [boburciu@r220 Rancher_K8s_prereq]$ ansible-playbook Rancher_prereq_setup.yml -v --become --ask-become-pass 
 
