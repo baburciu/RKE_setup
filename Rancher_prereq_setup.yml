@@ -30,3 +30,6 @@
 
 - name: 7th, enable AllowTCPForwarding
   import_playbook: allow_tcp_fwd.yml
+
+- name: 8th, enable DNS server for resolving Rancher Server URL
+  import_playbook: set_dns_Rancher_server.yml  
