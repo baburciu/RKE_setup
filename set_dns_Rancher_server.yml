@@ -1,0 +1,17 @@
+---
+- name: Set DNS server for resolving the Rancher server URL, 8th
+    # Just if Custom cluster is created from Rancher server, who will provide a command
+    # Command has URL for cluster members to adhere to cluster and they need to resolve it
+  hosts: ubuntu-rke
+  tasks:
+    - name: Set DNS server and search domain in /etc/netplan/01-netcfg.yaml
+      blockinfile:    # add the text block to this file
+        path: /etc/netplan/01-netcfg.yaml
+        block: |2     # tells that 2 spaces from the block are for the block indentation, rest being for usual Ansible yamlformatting
+                nameservers:
+                  addresses: [192.168.122.64, 8.8.8.8]
+                  search: [boburciu.privatecloud.com]
+        state: present
+    - name: Run "sudo netplan apply"
+      command: sudo netplan apply      
+
