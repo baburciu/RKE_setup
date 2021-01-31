@@ -1,5 +1,5 @@
 # RKE_setup
-Satisfying Rancher requirements for Kubernetes cluster setup on Ubuntu 18.04 LTS bare metal VMs and have a way to clear leftovers once RKE cluster is deleted
+Satisfying Rancher requirements for Kubernetes cluster setup on Ubuntu 18.04 LTS VMs on bare metal CentOS7.2 and have a way to clear leftovers once RKE cluster is deleted
 
 ## Apply prerequisites for nodes to be part of manual RKE cluster or RKE cluster created via Rancher server:
 
